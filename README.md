@@ -83,7 +83,7 @@ Some supported appearance properties via the `SegmentedSelectorViewState` are:
 | Property | Type | Description |
 |---|---|---|
 | `backgroundColor` | `Color` | Background color |
-| `selectedSegmentColor` | `Color` | Background color of selected segment |
+| `selectedSegmentColor` | `Color` | Background color of the selected segment |
 | `padding` | `CGFloat` | Padding between the selected segment and the background view |
 | `cornerRadius` | `CGFloat` | Corner radius of the outermost background view |
 | `font` | `UIFont` | Um.. the font |
