@@ -31,13 +31,12 @@ enum ExampleEnum: String, CaseIterable, Identifiable {
 }
 
 ```
-This will be used as the datasource for the View. It should conform to `String`, `CaseIterable` & `Identifiable`.
+This will be used as the datasource for the view. It should conform to `String`, `CaseIterable` & `Identifiable`.
 
 ### Create a ViewModel
 
 ```swift
 class ExampleViewModel: SegmentedSelectorViewModel {
-
 	var viewState: SegmentedSelectorViewState<ExampleEnum>
 
     init(viewState: SegmentedSelectorViewState<ExampleEnum>) {
@@ -51,15 +50,29 @@ class ExampleViewModel: SegmentedSelectorViewModel {
 ```
 It should conform to `SegmentedSelectorViewModel`.
 
-### Initialize your ViewModel & SegmentedSelector
+### Initialize your ViewModel & SegmentedSelector View
 
 ```swift
+// Create using default parameters
 let exampleViewModel = ExampleViewModel(viewState: .init(selectedSegment: .option1))
 
+// Or customize font, color, cornerRadius, etc.
+let exampleViewModel = ExampleViewModel(
+    viewState: SegmentedSelectorViewState(
+        selectedSegmentColor: <#T##Color#>,
+        backgroundColor: <#T##Color#>,
+        font: <#T##Font#>,
+        animation: <#T##Animation#>,
+        cornerRadius: <#T##CGFloat#>,
+        padding: <#T##CGFloat#>,
+        selectedSegment: .option1
+    )
+)
+
 var body: some View {
-	...
-	SegmentedSelector(viewModel: exampleViewModel)
-	...
+    ...
+    SegmentedSelector(viewModel: exampleViewModel)
+    ...
 }
 ```
 
