@@ -76,7 +76,7 @@ var body: some View {
 }
 ```
 
-### Appearance
+## Appearance
 
 Some supported appearance properties via the `SegmentedSelectorViewState` are:
 
@@ -86,6 +86,6 @@ Some supported appearance properties via the `SegmentedSelectorViewState` are:
 | `selectedSegmentColor` | `Color` | Background color of selected segment |
 | `padding` | `CGFloat` | Padding between the selected segment and the background view |
 | `cornerRadius` | `CGFloat` | Corner radius of the outermost background view |
-| `font` | `UIFont` | Font |
+| `font` | `UIFont` | Um.. the font |
 | `animation` | `Animation` | Animation of the segment selection. Can be set to `.bouncy`, `.easeIn`, etc. |
 
