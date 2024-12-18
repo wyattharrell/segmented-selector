@@ -1,4 +1,5 @@
 # Segmented Selector
+[![GitHub release](https://img.shields.io/github/release/wyattharrell/segmented-selector.svg)](https://github.com/wyattharrell/segmented-selector/releases)
 
 ![Segmented Select Gif](https://raw.githubusercontent.com/wyattharrell/segmented-selector/refs/heads/main/segmented-selector.gif)
 
