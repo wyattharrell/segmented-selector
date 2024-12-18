@@ -20,7 +20,7 @@ public final class SegmentedSelectorViewState<T: CRI>: ObservableObject where T.
 
     @Published public var selectedSegment: T
 
-    init(
+    public init(
         selectedSegmentColor: Color = Color.white,
         backgroundColor: Color = Color(UIColor.systemGray6),
         font: Font = Font.system(
