@@ -37,7 +37,7 @@ This will be used as the datasource for the view. It should conform to `String`,
 
 ```swift
 class ExampleViewModel: SegmentedSelectorViewModel {
-	var viewState: SegmentedSelectorViewState<ExampleEnum>
+    var viewState: SegmentedSelectorViewState<ExampleEnum>
 
     init(viewState: SegmentedSelectorViewState<ExampleEnum>) {
         self.viewState = viewState
