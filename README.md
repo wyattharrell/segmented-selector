@@ -1,5 +1,9 @@
 # Segmented Selector
 [![GitHub release](https://img.shields.io/github/release/wyattharrell/segmented-selector.svg)](https://github.com/wyattharrell/segmented-selector/releases)
+[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/wyattharrell/segmented-selector/master/LICENSE)
+
+[![GitHub issues](https://img.shields.io/github/issues-raw/wyattharrell/segmented-selector.svg)](https://github.com/wyattharrell/segmented-selector/issues) [![Swift Package Manager compatible](https://img.shields.io/badge/swift%20package%20manager-compatible-green)](https://swift.org/package-manager/)
+
 
 ![Segmented Select Gif](https://raw.githubusercontent.com/wyattharrell/segmented-selector/refs/heads/main/segmented-selector.gif)
 
