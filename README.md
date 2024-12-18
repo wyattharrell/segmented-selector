@@ -1,5 +1,7 @@
 # Segmented Selector
 
+![Segmented Select Gif](https://raw.githubusercontent.com/wyattharrell/segmented-selector/refs/heads/main/segmented-selector.gif)
+
 A modern UISegmentedControl built with SwiftUI.
 
 ## Requirements
