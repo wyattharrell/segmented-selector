@@ -42,26 +42,47 @@ public struct SegmentedSelector<ViewModel: SegmentedSelectorViewModel>: View {
                 )
             }
         }
-        .background(
-            RoundedRectangle(
-                cornerRadius: viewState.cornerRadius,
-                style: .continuous
-            )
-            .fill(viewState.selectedSegmentColor)
-            .matchedGeometryEffect(
-                id: viewState.selectedSegment.rawValue,
-                in: segmentedControl,
-                isSource: false
-            )
-        )
-        .padding(viewState.padding)
-        .background(viewState.backgroundColor)
-        .clipShape(
-            RoundedRectangle(
-                cornerRadius: viewState.cornerRadius + viewState.padding,
-                style: .continuous
-            )
-        )
-        .buttonStyle(.plain)
+        .conditionallyApply { view in
+            if case .roundedRectangle(let cornerRadius) = viewState.shape {
+                view.background(
+                    RoundedRectangle(
+                        cornerRadius: cornerRadius,
+                        style: .continuous
+                    )
+                    .fill(viewState.selectedSegmentColor)
+                    .matchedGeometryEffect(
+                        id: viewState.selectedSegment.rawValue,
+                        in: segmentedControl,
+                        isSource: false
+                    )
+                )
+                .padding(viewState.padding)
+                .background(viewState.backgroundColor)
+                .clipShape(
+                    RoundedRectangle(
+                        cornerRadius: cornerRadius + viewState.padding,
+                        style: .continuous
+                    )
+                )
+                .buttonStyle(.plain)
+            }
+            else if case .capsule = viewState.shape {
+                view.background(
+                    Capsule()
+                        .fill(viewState.selectedSegmentColor)
+                        .matchedGeometryEffect(
+                            id: viewState.selectedSegment.rawValue,
+                            in: segmentedControl,
+                            isSource: false
+                        )
+                )
+                .padding(viewState.padding)
+                .background(viewState.backgroundColor)
+                .clipShape(
+                    Capsule()
+                )
+                .buttonStyle(.plain)
+            }
+        }
     }
 }
