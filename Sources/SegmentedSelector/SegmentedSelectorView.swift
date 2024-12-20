@@ -86,36 +86,3 @@ public struct SegmentedSelector<ViewModel: SegmentedSelectorViewModel>: View {
         }
     }
 }
-
-enum ExampleEnum: String, CaseIterable, Identifiable {
-    var id: Self { self }
-
-    case option1 = "Option 1"
-    case option2 = "Option 2"
-    case option3 = "Option 3"
-}
-
-
-class TestViewModel: SegmentedSelectorViewModel {
-    init(viewState: SegmentedSelectorViewState<ExampleEnum>) {
-        self.viewState = viewState
-    }
-
-    var viewState: SegmentedSelectorViewState<ExampleEnum>
-
-    func selectionChanged() {
-        print("Changed")
-    }
-}
-
-@MainActor let a = TestViewModel(
-    viewState: SegmentedSelectorViewState(selectedSegment: .option1)
-)
-
-#Preview {
-
-
-
-
-    SegmentedSelector(viewModel: a)
-}
