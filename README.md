@@ -67,13 +67,13 @@ let exampleViewModel = ExampleViewModel(viewState: viewState)
 // Or customize font, color, cornerRadius, etc.
 let exampleViewModel = ExampleViewModel(
     viewState: SegmentedSelectorViewState(
-        shape: <#T##SegmentedSelectorViewState<WidgetType>.Shape#>,
+        shape: <#T##Shape#>,
         selectedSegmentColor: <#T##Color#>,
         backgroundColor: <#T##Color#>,
         font: <#T##Font#>,
         animation: <#T##Animation#>,
         padding: <#T##CGFloat#>,
-        selectedSegment: <#T##WidgetType#>
+        selectedSegment: <#T##T#>
     )
 )
 
