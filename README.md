@@ -61,25 +61,47 @@ It should conform to `SegmentedSelectorViewModel`.
 
 ```swift
 // Create using default parameters
-let exampleViewModel = ExampleViewModel(viewState: .init(selectedSegment: .option1))
+let viewState = SegmentedSelectorViewState(selectedSegment: .option1)
+let exampleViewModel = ExampleViewModel(viewState: viewState)
 
 // Or customize font, color, cornerRadius, etc.
 let exampleViewModel = ExampleViewModel(
     viewState: SegmentedSelectorViewState(
+        shape: <#T##SegmentedSelectorViewState<WidgetType>.Shape#>,
         selectedSegmentColor: <#T##Color#>,
         backgroundColor: <#T##Color#>,
         font: <#T##Font#>,
         animation: <#T##Animation#>,
-        cornerRadius: <#T##CGFloat#>,
         padding: <#T##CGFloat#>,
-        selectedSegment: .option1
+        selectedSegment: <#T##WidgetType#>
     )
 )
 
-var body: some View {
-    ...
-    SegmentedSelector(viewModel: exampleViewModel)
-    ...
+struct SomeView: View {
+
+    var viewModel: ExampleViewModel
+
+    @ObservedObject
+    var viewState: SegmentedSelectorViewState<ExampleEnum>
+
+    init() {
+    	self.viewModel = ExampleViewModel(
+            viewState: SegmentedSelectorViewState(
+                selectedSegmentColor: Color(UIColor.systemGray5),
+                selectedSegment: .option1
+            )
+        )
+
+        self.viewState = viewModel.viewState
+    }
+
+    var body: some View {
+        ...
+        SegmentedSelector(viewModel: exampleViewModel)
+        ...
+
+        // React to selection changes using `$viewState.selectedSegment`
+    }
 }
 ```
 
@@ -92,7 +114,7 @@ Some supported appearance properties via the `SegmentedSelectorViewState` are:
 | `backgroundColor` | `Color` | Background color |
 | `selectedSegmentColor` | `Color` | Background color of the selected segment |
 | `padding` | `CGFloat` | Padding between the selected segment and the background view |
-| `cornerRadius` | `CGFloat` | Corner radius of the outermost background view |
+| `shape` | `Shape` | The shape of the control. Either .roundedRectangle, or .capsule |
 | `font` | `UIFont` | Um.. the font |
 | `animation` | `Animation` | Animation of the segment selection. Can be set to `.bouncy`, `.easeIn`, etc. |
 
