@@ -35,6 +35,7 @@ public struct SegmentedSelector<ViewModel: SegmentedSelectorViewModel>: View {
                         .font(viewState.font)
                         .multilineTextAlignment(.center)
                         .padding(10)
+                        .fixedSize(horizontal: false, vertical: true)
                 }
                 .matchedGeometryEffect(
                     id: segment.rawValue,
