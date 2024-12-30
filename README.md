@@ -28,6 +28,8 @@ You can also manually add the package to your Package.swift file:
 
 ### Create an Enum
 
+This will be used as the datasource for the view. It should conform to `String`, `CaseIterable` & `Identifiable`.
+
 ```swift
 enum ExampleEnum: String, CaseIterable, Identifiable {
     var id: Self { self }
@@ -38,36 +40,16 @@ enum ExampleEnum: String, CaseIterable, Identifiable {
 }
 
 ```
-This will be used as the datasource for the view. It should conform to `String`, `CaseIterable` & `Identifiable`.
 
-### Create a ViewModel
-
-```swift
-class ExampleViewModel: SegmentedSelectorViewModel {
-    var viewState: SegmentedSelectorViewState<ExampleEnum>
-
-    init(viewState: SegmentedSelectorViewState<ExampleEnum>) {
-        self.viewState = viewState
-    }
-
-    func selectionChanged() {
-        // React to selection changes with your own haptic feedback implementation
-    }
-}
-```
-It should conform to `SegmentedSelectorViewModel`.
-
-### Initialize your ViewModel & SegmentedSelector View
+### Initialize your Configuration (optional) & SegmentedSelector View
 
 ```swift
-// Create using default parameters
-let viewState = SegmentedSelectorViewState(selectedSegment: .option1)
-let exampleViewModel = ExampleViewModel(viewState: viewState)
+// Create using the default parameters
+let configuration = SegmentedSelectorConfiguration()
 
 // Or customize font, color, cornerRadius, etc.
-let exampleViewModel = ExampleViewModel(
-    viewState: SegmentedSelectorViewState(
-        shape: <#T##Shape#>,
+let configuration = SegmentedSelectorConfiguration(
+        shape: <#T##SegmentedSelectorViewState<WidgetType>.Shape#>,
         selectedSegmentColor: <#T##Color#>,
         backgroundColor: <#T##Color#>,
         font: <#T##Font#>,
@@ -79,35 +61,27 @@ let exampleViewModel = ExampleViewModel(
 
 struct SomeView: View {
 
-    var viewModel: ExampleViewModel
-
-    @ObservedObject
-    var viewState: SegmentedSelectorViewState<ExampleEnum>
-
-    init() {
-    	self.viewModel = ExampleViewModel(
-            viewState: SegmentedSelectorViewState(
-                selectedSegmentColor: Color(UIColor.systemGray5),
-                selectedSegment: .option1
-            )
-        )
-
-        self.viewState = viewModel.viewState
-    }
+    @State
+    var selectedSegment: ExampleEnum = .option1
 
     var body: some View {
         ...
-        SegmentedSelector(viewModel: exampleViewModel)
-        ...
+        // Use the default configuration
+        SegmentedSelector<ExampleEnum>(selectedSegment: $selectedSegment)
 
-        // React to selection changes using `$viewState.selectedSegment`
+        // Or optionally provide your own configuration to the view
+        SegmentedSelector<ExampleEnum>(
+        	configuration: configuration,
+        	selectedSegment: $selectedSegment
+        )
+        ...
     }
 }
 ```
 
 ## Appearance
 
-Some supported appearance properties via the `SegmentedSelectorViewState` are:
+Some supported appearance properties via the `SegmentedSelectorConfiguration` are:
 
 | Property | Type | Description |
 |---|---|---|

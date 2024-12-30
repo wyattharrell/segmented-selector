@@ -7,34 +7,37 @@
 
 import SwiftUI
 
-public struct SegmentedSelector<ViewModel: SegmentedSelectorViewModel>: View {
+public struct SegmentedSelector<T>:
+    View where T: CaseIterable & RawRepresentable & Identifiable, T.RawValue == String, T.AllCases: RandomAccessCollection {
 
     @Namespace
     private var segmentedControl
-    private let viewModel: ViewModel
 
-    @ObservedObject
-    var viewState: SegmentedSelectorViewState<ViewModel.T>
+    @Binding
+    private var selectedSegment: T
+    private var configuration: SegmentedSelectorConfiguration
 
-    public init(viewModel: ViewModel) {
-        self.viewModel = viewModel
-        self.viewState = viewModel.viewState
+    public init(
+        configuration: SegmentedSelectorConfiguration = SegmentedSelectorConfiguration(),
+        selectedSegment: Binding<T>
+    ) {
+        self._selectedSegment = selectedSegment
+        self.configuration = configuration
     }
 
     public var body: some View {
         HStack {
-            ForEach(ViewModel.T.allCases, id: \.id) { segment in
+            ForEach(T.allCases, id: \.id) { segment in
                 Button {
-                    withAnimation(viewState.animation) {
-                        viewState.selectedSegment = segment
+                    withAnimation(configuration.animation) {
+                        selectedSegment = segment
                     }
-
-                    viewModel.selectionChanged()
                 } label: {
                     Text(segment.rawValue)
-                        .font(viewState.font)
+                        .font(configuration.font)
                         .multilineTextAlignment(.center)
                         .padding(10)
+                        .fixedSize(horizontal: false, vertical: true)
                 }
                 .matchedGeometryEffect(
                     id: segment.rawValue,
@@ -43,41 +46,41 @@ public struct SegmentedSelector<ViewModel: SegmentedSelectorViewModel>: View {
             }
         }
         .conditionallyApply { view in
-            if case .roundedRectangle(let cornerRadius) = viewState.shape {
+            if case .roundedRectangle(let cornerRadius) = configuration.shape {
                 view.background(
                     RoundedRectangle(
                         cornerRadius: cornerRadius,
                         style: .continuous
                     )
-                    .fill(viewState.selectedSegmentColor)
+                    .fill(configuration.selectedSegmentColor)
                     .matchedGeometryEffect(
-                        id: viewState.selectedSegment.rawValue,
+                        id: selectedSegment.rawValue,
                         in: segmentedControl,
                         isSource: false
                     )
                 )
-                .padding(viewState.padding)
-                .background(viewState.backgroundColor)
+                .padding(configuration.padding)
+                .background(configuration.backgroundColor)
                 .clipShape(
                     RoundedRectangle(
-                        cornerRadius: cornerRadius + viewState.padding,
+                        cornerRadius: cornerRadius + configuration.padding,
                         style: .continuous
                     )
                 )
                 .buttonStyle(.plain)
             }
-            else if case .capsule = viewState.shape {
+            else if case .capsule = configuration.shape {
                 view.background(
                     Capsule()
-                        .fill(viewState.selectedSegmentColor)
+                        .fill(configuration.selectedSegmentColor)
                         .matchedGeometryEffect(
-                            id: viewState.selectedSegment.rawValue,
+                            id: selectedSegment.rawValue,
                             in: segmentedControl,
                             isSource: false
                         )
                 )
-                .padding(viewState.padding)
-                .background(viewState.backgroundColor)
+                .padding(configuration.padding)
+                .background(configuration.backgroundColor)
                 .clipShape(
                     Capsule()
                 )
