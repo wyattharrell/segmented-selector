@@ -21,7 +21,7 @@ A modern UISegmentedControl built with SwiftUI.
 
 You can also manually add the package to your Package.swift file:
 ```ruby
-.package(url: "https://github.com/wyattharrell/segmented-selector.git", from: "1.0.0")
+.package(url: "https://github.com/wyattharrell/segmented-selector.git", from: "2.0.0")
 ```
 
 ## Getting Started
