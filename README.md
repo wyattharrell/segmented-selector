@@ -55,7 +55,7 @@ let configuration = SegmentedSelectorConfiguration(
         font: <#T##Font#>,
         animation: <#T##Animation#>,
         padding: <#T##CGFloat#>,
-        selectedSegment: <#T##WidgetType#>
+        selectedSegment: <#T##T#>
     )
 )
 
@@ -88,7 +88,7 @@ Some supported appearance properties via the `SegmentedSelectorConfiguration` ar
 | `backgroundColor` | `Color` | Background color |
 | `selectedSegmentColor` | `Color` | Background color of the selected segment |
 | `padding` | `CGFloat` | Padding between the selected segment and the background view |
-| `shape` | `Shape` | The shape of the control. Either .roundedRectangle, or .capsule |
+| `shape` | `Shape` | The shape of the control. Either .roundedRectangle or .capsule |
 | `font` | `UIFont` | Um.. the font |
 | `animation` | `Animation` | Animation of the segment selection. Can be set to `.bouncy`, `.easeIn`, etc. |
 
