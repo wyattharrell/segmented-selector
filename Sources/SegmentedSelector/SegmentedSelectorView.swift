@@ -7,40 +7,42 @@
 
 import SwiftUI
 
-public struct SegmentedSelector<T>:
-    View where T: CaseIterable & RawRepresentable & Identifiable, T.RawValue == String, T.AllCases: RandomAccessCollection {
+public struct SegmentedSelector<Data, Selection>: View where Data: RandomAccessCollection, Data.Element == Selection, Selection: Identifiable & SegmentSelectable {
 
     @Namespace
     private var segmentedControl
 
     @Binding
-    private var selectedSegment: T
+    private var selectedSegment: Selection
+    private var dataSource: Data
     private var configuration: SegmentedSelectorConfiguration
 
     public init(
-        configuration: SegmentedSelectorConfiguration = SegmentedSelectorConfiguration(),
-        selectedSegment: Binding<T>
+        _ dataSource: Data,
+        selectedSegment: Binding<Selection>,
+        configuration: SegmentedSelectorConfiguration = SegmentedSelectorConfiguration()
     ) {
+        self.dataSource = dataSource
         self._selectedSegment = selectedSegment
         self.configuration = configuration
     }
 
     public var body: some View {
         HStack {
-            ForEach(T.allCases, id: \.id) { segment in
+            ForEach(dataSource, id: \.id) { segment in
                 Button {
                     withAnimation(configuration.animation) {
                         selectedSegment = segment
                     }
                 } label: {
-                    Text(segment.rawValue)
+                    Text(segment.title)
                         .font(configuration.font)
                         .multilineTextAlignment(.center)
                         .padding(10)
                         .fixedSize(horizontal: false, vertical: true)
                 }
                 .matchedGeometryEffect(
-                    id: segment.rawValue,
+                    id: segment.title,
                     in: segmentedControl
                 )
             }
@@ -54,7 +56,7 @@ public struct SegmentedSelector<T>:
                     )
                     .fill(configuration.selectedSegmentColor)
                     .matchedGeometryEffect(
-                        id: selectedSegment.rawValue,
+                        id: selectedSegment.title,
                         in: segmentedControl,
                         isSource: false
                     )
@@ -74,7 +76,7 @@ public struct SegmentedSelector<T>:
                     Capsule()
                         .fill(configuration.selectedSegmentColor)
                         .matchedGeometryEffect(
-                            id: selectedSegment.rawValue,
+                            id: selectedSegment.title,
                             in: segmentedControl,
                             isSource: false
                         )
